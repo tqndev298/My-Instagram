@@ -11,18 +11,12 @@ mongoose
   })
   .then(() => console.log("Db Connected"));
 
-const customMiddleWare = (req, res, next) => {
-  console.log("middleware executed");
-  next();
-};
+require("./models/user");
+require("./models/post");
 
 app.use(express.json());
 app.use(require("./routes/auth"));
-
-app.get("/about", customMiddleWare, (req, res) => {
-  console.log("About");
-  res.send("About");
-});
+app.use(require("./routes/post"));
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
