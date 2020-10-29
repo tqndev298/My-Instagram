@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const requireLogin = require("../middleware/requireLogin");
 const Post = require("../models/post");
 
-router.get("/allpost", (req, res) => {
+router.get("/allpost", requireLogin, (req, res) => {
   Post.find()
     .populate("postedBy", "_id name")
     .then((posts) => {
@@ -21,7 +21,7 @@ router.post("/createpost", requireLogin, (req, res) => {
     res.status(422).json({ error: "Please add all the fields" });
   }
   req.user.password = undefined;
-    const post = new Post({
+  const post = new Post({
     title,
     body,
     photo: pic,
@@ -46,5 +46,63 @@ router.get("/mypost", requireLogin, (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+});
+
+router.put("/like", requireLogin, (req, res) => {
+  Post.findByIdAndUpdate(
+    req.body.postId,
+    {
+      $push: { likes: req.user._id },
+    },
+    {
+      new: true,
+    }
+  ).exec((err, result) => {
+    if (err) {
+      return res.status(422).json({ error: err });
+    } else {
+      res.json(result);
+    }
+  });
+});
+router.put("/unlike", requireLogin, (req, res) => {
+  Post.findByIdAndUpdate(
+    req.body.postId,
+    {
+      $pull: { likes: req.user._id },
+    },
+    {
+      new: true,
+    }
+  ).exec((err, result) => {
+    if (err) {
+      return res.status(422).json({ error: err });
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+router.put("/comment", requireLogin, (req, res) => {
+  const comment = {
+    text: req.body.text,
+    postedBy: req.user,
+  };
+  Post.findByIdAndUpdate(
+    req.body.postId,
+    {
+      $push: { comments: comment },
+    },
+    {
+      new: true,
+    }
+  ).populate("comments.postedby","_id name")
+  .exec((err, result) => {
+    if (err) {
+      return res.status(422).json({ error: err });
+    } else {
+      res.json(result);
+    }
+  });
 });
 module.exports = router;
