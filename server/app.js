@@ -17,6 +17,7 @@ require("./models/post");
 app.use(express.json());
 app.use(require("./routes/auth"));
 app.use(require("./routes/post"));
+app.use(require("./routes/user"));
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {

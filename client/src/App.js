@@ -19,7 +19,6 @@ const Routing = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       dispatch({ type: "USER", payload: user });
-      history.push("/");
     } else {
       history.push("/signin");
     }
@@ -41,7 +40,7 @@ const Routing = () => {
       <Route path="/create">
         <CreatePost />
       </Route>
-      <Route path="/profile/:userid">
+      <Route path="/profile/:userId">
         <UserProfile />
       </Route>
     </Switch>

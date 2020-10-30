@@ -22,4 +22,11 @@ router.get("/user/:id", requireLogin, (req, res) => {
       return res.status(404).json({ error: "User not found" });
     });
 });
+
+router.put('/follow',(req,res)=>{
+  User.findByIdAndUpdate(req.body.followId,{
+    $push:{followers:req.user._id}
+  })
+})
+
 module.exports = router;
