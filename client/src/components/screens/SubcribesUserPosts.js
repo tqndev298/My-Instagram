@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../App";
 import { Link } from "react-router-dom";
 
-const Home = () => {
+const SubcribesUserPosts = () => {
   const [data, setData] = useState([]);
   const { state, dispatch } = useContext(UserContext);
   useEffect(() => {
-    fetch("/allpost", {
+    fetch("/getsubpost", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -126,7 +126,7 @@ const Home = () => {
                 to={
                   item.postedBy._id !== state._id
                     ? "/profile/" + item.postedBy._id
-                    : "/profile/"
+                    : "/profile"
                 }
               >
                 {item.postedBy.name}
@@ -219,4 +219,4 @@ const Home = () => {
     </div>
   );
 };
-export default Home;
+export default SubcribesUserPosts;
