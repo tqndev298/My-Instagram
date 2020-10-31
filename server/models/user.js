@@ -13,9 +13,11 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-  },pic:{
-    type:String,
-    default:"https://res.cloudinary.com/tqn/image/upload/v1604112456/Avatar_wf2m0q.png"
+  },
+  pic: {
+    type: String,
+    default:
+      "https://res.cloudinary.com/tqn/image/upload/v1604142528/Avatar/no-avatar_vsragu.png",
   },
   followers: [{ type: ObjectId, ref: "User" }],
   following: [{ type: ObjectId, ref: "User" }],

@@ -40,7 +40,8 @@ router.put("/follow", requireLogin, (req, res) => {
           $push: { following: req.body.followId },
         },
         { new: true }
-      ).select("-password")
+      )
+        .select("-password")
         .then((result) => {
           res.json(result);
         })
@@ -67,13 +68,28 @@ router.put("/unfollow", requireLogin, (req, res) => {
           $pull: { following: req.body.unFollowId },
         },
         { new: true }
-      ).select("-password")
+      )
+        .select("-password")
         .then((result) => {
           res.json(result);
         })
         .catch((err) => {
           return res.status(422).json({ error: err });
         });
+    }
+  );
+});
+
+router.put("/updatepic", requireLogin, (req, res) => {
+  User.findByIdAndUpdate(
+    req.user._id,
+    { $set: { pic: req.body.pic } },
+    { new: true },
+    (err, result) => {
+      if (err) {
+        return res.status(422).json({ error: "pic cant post" });
+      }
+      res.json(result);
     }
   );
 });

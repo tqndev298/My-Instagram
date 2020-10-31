@@ -88,7 +88,7 @@ export const CreatePost = () => {
         </div>
       </div>
       <button
-        className="btn waves-effect waves-light #64b5f6 blue lighten-2"
+        className="btn waves-effect waves-light #64b5f6 blue darken-2"
         onClick={() => postDetails()}
       >
         Submit Post
