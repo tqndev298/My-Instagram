@@ -126,7 +126,7 @@ const Home = () => {
                 to={
                   item.postedBy._id !== state._id
                     ? "/profile/" + item.postedBy._id
-                    : "/profile/"
+                    : "/profile"
                 }
               >
                 {item.postedBy.name}

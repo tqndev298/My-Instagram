@@ -39,7 +39,9 @@ input[type="password"]:focus {
   height: max-content;
   margin: 30px auto;
 }
-
+.collection-item {
+  width: 100%;
+}
 #toast-container {
   top: 60px !important;
   right: 20px !important;
