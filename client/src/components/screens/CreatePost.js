@@ -79,7 +79,7 @@ export const CreatePost = () => {
         onChange={(e) => setBody(e.target.value)}
       />
       <div className="file-field input-field">
-        <div className="btn #64b5f6 blue lighten-2">
+        <div className="btn #64b5f6 blue darken-2">
           <span>Upload Image</span>
           <input type="file" onChange={(e) => setImage(e.target.files[0])} />
         </div>
